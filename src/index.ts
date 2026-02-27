@@ -134,7 +134,7 @@ const consultaConfirmada1 = confirmarConsulta(consulta1);
 // console.log("=== CONSULTA CONFIRMADA ===");
 // console.log(exibirConsulta(consultaConfirmada1));
 
-// ==== ATIVIDADE 1 ====
+// ==== ATIVIDADE 1 - LISTAR CONSULTAR POR STATUS ====
 function listarConsultasPorStatus(consultas: Consulta[], status: StatusConsulta): Consulta[] {
     return consultas.filter(consulta => consulta.status === status)
 }
@@ -180,4 +180,11 @@ consultas.push(consultaConfirmada1, consulta2, consultaConfirmada3, consulta4, c
 // Listando consultas confirmadas
 for (const consulta of listarConsultasPorStatus(consultas, "confirmada")) {
     console.log(exibirConsulta(consulta))
+}
+
+// ==== ATIVIDADE 2 - LISTAR CONSULTAS FUTURAS ====
+function listarConsultasFuturas(consultas: Consulta[]): Consulta[] {
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0) // Zera horas para comparar apenas a data
+    return consultas.filter(consulta => consulta.data >= hoje)
 }
