@@ -192,16 +192,16 @@ consulta5 = alterarStatusConsulta(consulta5, "cancelada");
 consultas.push(consulta1, consulta2, consulta3, consulta4, consulta5);
 
 // Listando consultas confirmadas
-// console.log("=== Consultas Confirmadas ===");
-// for (const consulta of listarConsultasPorStatus(consultas, "confirmada")) {
-//     console.log(exibirConsulta(consulta))
-// }
+console.log("=== Consultas Confirmadas ===");
+for (const consulta of listarConsultasPorStatus(consultas, "confirmada")) {
+    console.log(exibirConsulta(consulta))
+}
 
 // Listando consultas futuras
-// console.log("=== Consultas Futuras ===");
-// for (const consulta of listarConsultasFuturas(consultas)) {
-//     console.log(exibirConsulta(consulta))
-// }
+console.log("=== Consultas Futuras ===");
+for (const consulta of listarConsultasFuturas(consultas)) {
+    console.log(exibirConsulta(consulta))
+}
 
 // ==== ATIVIDADE 4 - CALCULAR FATURAMENTO ====
 function calcularFaturamento(consultas: Consulta[]): number {
