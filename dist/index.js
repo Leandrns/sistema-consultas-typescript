@@ -77,6 +77,9 @@ function cancelarConsulta(consulta) {
     }
     return Object.assign(Object.assign({}, consulta), { status: "cancelada" });
 }
+function alterarStatusConsulta(consulta, novoStatus) {
+    return Object.assign(Object.assign({}, consulta), { status: novoStatus });
+}
 function exibirConsulta(consulta) {
     const valorFormatado = consulta.valor.toLocaleString("pt-BR", {
         style: "currency",
@@ -92,25 +95,38 @@ Valor: ${valorFormatado}
 Status: ${consulta.status}
 `;
 }
-// ==== EXECUÇÃO INICIAL ====
-const consulta1 = criarConsulta(1, medico1, paciente1, new Date(), 350);
-const consultaConfirmada1 = confirmarConsulta(consulta1);
-// console.log("=== CONSULTA CONFIRMADA ===");
-// console.log(exibirConsulta(consultaConfirmada1));
-// ==== ATIVIDADE 1 ====
+// ==== ATIVIDADE 1 - LISTAR CONSULTAR POR STATUS ====
 function listarConsultasPorStatus(consultas, status) {
     return consultas.filter(consulta => consulta.status === status);
 }
+// ==== ATIVIDADE 2 - LISTAR CONSULTAS FUTURAS ====
+function listarConsultasFuturas(consultas) {
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0); // Zera horas para comparar apenas a data
+    return consultas.filter(consulta => consulta.data >= hoje);
+}
+// ==== ATIVIDADE 3 - ARRAY TIPADO DE CONSULTAS ====
 const consultas = [];
-const consulta2 = criarConsulta(2, medico2, paciente2, new Date(), 270);
-const consulta3 = criarConsulta(3, medico3, paciente3, new Date(), 370);
-const consultaConfirmada3 = confirmarConsulta(consulta3);
-const consulta4 = criarConsulta(4, medico3, paciente1, new Date(), 370);
-const consulta5 = criarConsulta(5, medico2, paciente3, new Date(), 200);
-const consultaConfirmada5 = confirmarConsulta(consulta5);
-consultas.push(consultaConfirmada1, consulta2, consultaConfirmada3, consulta4, consultaConfirmada5);
+let consulta1 = criarConsulta(1, medico1, paciente1, new Date("2024-10-20"), 350);
+consulta1 = confirmarConsulta(consulta1);
+let consulta2 = criarConsulta(2, medico2, paciente2, new Date("2026-05-01"), 270);
+consulta2 = alterarStatusConsulta(consulta2, "realizada");
+let consulta3 = criarConsulta(3, medico3, paciente3, new Date("2024-11-15"), 370);
+consulta3 = confirmarConsulta(consulta3);
+let consulta4 = criarConsulta(4, medico3, paciente1, new Date("2025-09-30"), 370);
+consulta4 = alterarStatusConsulta(consulta4, "realizada");
+let consulta5 = criarConsulta(5, medico2, paciente3, new Date("2026-10-05"), 200);
+consulta5 = alterarStatusConsulta(consulta5, "cancelada");
+// Adicionando consultas ao array
+consultas.push(consulta1, consulta2, consulta3, consulta4, consulta5);
 // Listando consultas confirmadas
+console.log("=== Consultas Confirmadas ===");
 for (const consulta of listarConsultasPorStatus(consultas, "confirmada")) {
+    console.log(exibirConsulta(consulta));
+}
+// Listando consultas futuras
+console.log("=== Consultas Futuras ===");
+for (const consulta of listarConsultasFuturas(consultas)) {
     console.log(exibirConsulta(consulta));
 }
 //# sourceMappingURL=index.js.map
